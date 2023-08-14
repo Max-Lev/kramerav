@@ -1,8 +1,37 @@
-:host{
-    border:1px solid gray;
+:host {
+    border: 1px solid gray;
     border-radius: 5px;
     width: 250px;
     display: flex;
     margin: 0.5rem;
-    padding: 1rem;
+    // padding: 1rem;
+
+    .monitor {
+        position: relative;
+        width: 100%;
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: center;
+            
+            padding: 10px;
+            color: white;
+            &.selected{
+                background: lightgreen;
+            }
+            &.unselected{
+                background: lightgray;
+            }
+        }
+
+        .size {
+            float: right;
+        }
+
+        .padding-1 {
+            padding: 1rem;
+        }
+    }
+
 }

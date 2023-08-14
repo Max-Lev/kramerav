@@ -1,36 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterModule } from '@angular/router';
-import { Observable, from, map, of } from 'rxjs';
+import { Observable, filter, from, map, mergeMap, of, tap } from 'rxjs';
 import { IMonitor } from '../models/monitor.model';
 
 @Component({
   selector: 'app-view-container',
   templateUrl: './view-container.component.html',
-  styleUrls: ['./view-container.component.scss']
+  styleUrls: ['./view-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewContainerComponent implements OnInit {
 
-  monitors$: Observable<IMonitor[]> = null;
+  monitors$: Observable<IMonitor[]>;
 
   constructor(private activatedRoute: ActivatedRoute,
-    
-    ) {
-    console.log(this.activatedRoute.snapshot.data['monitorsData'])
-    // console.log(this.activatedRoute.snapshot.data)
-    
-    console.log(JSON.parse(localStorage.getItem('monitorsData')));
-    // this.monitors$ = new Observable();
-    this.monitors$ = of(this.activatedRoute.snapshot.data['monitorsData']);
+    private changeDetectors: ChangeDetectorRef) {
 
   }
   ngOnInit(): void {
-    // this.monitors$.pipe(
-    //   map((data: IMonitor[]) => {
-    //     if (!data.length) {
-    // this.monitors$ = of(this.activatedRoute.snapshot.data['monitorsData']);
-    //     }
-    //   })
-    // )
+
+    if (localStorage.getItem('monitorsData') === null) {
+      this.monitors$ = of(JSON.parse(localStorage.getItem('monitorsData')!));
+    } else {
+      this.monitors$ = of(this.activatedRoute.snapshot.data['monitorsData']);
+    }
+  }
+
+  selecteHandler(monitor: IMonitor) {
+
+    this.monitors$.pipe(
+      map(monitors => {
+        let _monitor = monitors.find(_monitor => _monitor.Name === monitor.Name);
+        const itemIndex = monitors.findIndex(item => item.Name === monitor.Name);
+        monitors[itemIndex] =
+          _monitor = { ..._monitor, ...{ status: (_monitor.status === 1) ? 0 : 1 } };
+        return monitors;
+      })
+    ).subscribe()
+
   }
 
 }

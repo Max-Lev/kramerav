@@ -1,1 +1,5 @@
-{{monitor | json}}
+<div class="monitor" (click)="selected(monitor)">
+    <h3 [ngClass]="(monitor.status) ? 'selected':'unselected'">{{monitor.Name}}</h3>
+    <div class="padding-1">{{monitor.NativeResolution}}</div>
+    <div class="size padding-1">{{monitor.Size}}</div>
+</div>

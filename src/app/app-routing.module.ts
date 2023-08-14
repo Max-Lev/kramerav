@@ -5,10 +5,7 @@ import { dataResolver } from './monitor/data.resolver';
 const routes: Routes = [
   {
     path: 'monitor',
-    loadChildren: () => import('./monitor/monitor.module')
-      .then(m => m.MonitorModule),
-      resolve: { monitorsData: dataResolver }
-  
+    loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule)
   },
   {
     path: '', redirectTo: 'monitor', pathMatch: 'full'

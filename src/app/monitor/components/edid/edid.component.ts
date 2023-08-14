@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IMonitor } from '../../models/monitor.model';
 
 @Component({
@@ -8,6 +8,12 @@ import { IMonitor } from '../../models/monitor.model';
 })
 export class EdidComponent {
 
+  @Output() selectEmitter:EventEmitter<IMonitor> = new EventEmitter();
+
   @Input() monitor:IMonitor;
+
+  selected(monitor:IMonitor){
+    this.selectEmitter.emit(monitor)
+  }
 
 }

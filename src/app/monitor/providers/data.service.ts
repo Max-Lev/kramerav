@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, from, map, mergeMap, of, repeat, switchMap, take, tap, toArray } from 'rxjs';
+import { EMPTY, Observable, concatMap, from, map, mergeMap, of, repeat, switchMap, take, tap, toArray } from 'rxjs';
 import { IMonitor } from '../models/monitor.model';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
@@ -41,15 +41,10 @@ export class DataService {
   getData$(): Observable<IMonitor[]> {
 
     return from(this.fileNames).pipe(
-
-      mergeMap((name: string) => {
+      concatMap((name: string) => {
         if (localStorage.getItem('monitorsData') !== null && localStorage.getItem('monitorsData').length) {
           const monitors: IMonitor[] = JSON.parse(localStorage.getItem('monitorsData')!);
-          // console.log(this.activatedRoute.snapshot.data['monitorsData'])
-          // this.activatedRoute.snapshot.data['monitorsData'] = [];
-          console.log(this.activatedRoute.snapshot.data)
-          
-          return from(monitors);
+          return monitors;
         } else {
           return this.getMonitorByName$(name)
         }
@@ -61,7 +56,7 @@ export class DataService {
         if (localStorage.getItem('monitorsData') === null) {
           localStorage.setItem('monitorsData', JSON.stringify(data));
         }
-        return data;
+        return JSON.parse(localStorage.getItem('monitorsData')!);
       })
     );
   }
