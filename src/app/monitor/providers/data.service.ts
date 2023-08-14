@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, concatMap, from, map, mergeMap, of, repeat, switchMap, take, tap, toArray } from 'rxjs';
+import { Observable, from, concatMap, toArray, map } from 'rxjs';
 import { IMonitor } from '../models/monitor.model';
-import { StorageMap } from '@ngx-pwa/local-storage';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 @Injectable()
 export class DataService {
@@ -27,10 +25,7 @@ export class DataService {
 
   api = 'http://localhost:4200/assets/JSONmonitors/';
 
-  constructor(private http: HttpClient,
-    private activatedRoute: ActivatedRoute,
-    // private route: ActivatedRouteSnapshot,
-    private storage: StorageMap) {
+  constructor(private http: HttpClient) {
 
   }
 

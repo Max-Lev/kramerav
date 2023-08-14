@@ -4,9 +4,23 @@
 
     .container {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        border: 1px solid black;
-        max-width: 85%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .monitors-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            border: 1px solid black;
+            max-width: 85%;
+            border-radius: 5px;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: row;
+            max-width: 85%;
+        }
     }
 }

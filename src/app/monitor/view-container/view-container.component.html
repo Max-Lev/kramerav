@@ -1,5 +1,10 @@
 <section class="container">
-    <ng-container *ngFor="let monitor of monitors$ | async">
-        <app-edid (selectEmitter)="selecteHandler($event)" [monitor]="monitor"></app-edid>
-    </ng-container>
+    <form [formGroup]="searchForm" class="search-container">
+        <app-search formControlName="search"></app-search>
+    </form>
+    <section class="monitors-container">
+        <ng-container *ngFor="let monitor of monitors$ | async">
+            <app-edid (selectEmitter)="selecteHandler($event)" [monitor]="monitor"></app-edid>
+        </ng-container>
+    </section>
 </section>
