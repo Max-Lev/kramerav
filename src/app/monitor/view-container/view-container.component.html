@@ -1,1 +1,5 @@
-<p>view-container works!</p>
+<section class="container">
+    <ng-container *ngFor="let monitor of monitors$ | async">
+        <app-edid [monitor]="monitor"></app-edid>
+    </ng-container>
+</section>

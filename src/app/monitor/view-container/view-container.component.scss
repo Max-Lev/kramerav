@@ -1,0 +1,12 @@
+:host {
+    display: flex;
+    justify-content: center;
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border: 1px solid black;
+        max-width: 85%;
+    }
+}

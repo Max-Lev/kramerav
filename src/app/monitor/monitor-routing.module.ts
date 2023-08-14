@@ -6,7 +6,7 @@ import { dataResolver } from './data.resolver';
 const routes: Routes = [
   {
     path: '', component: ViewContainerComponent,
-    resolve: { getData: dataResolver }
+    resolve: { monitorsData: dataResolver }
   }
 ];
 
